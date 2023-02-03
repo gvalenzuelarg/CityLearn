@@ -1,0 +1,13 @@
+services:
+  citylearn:
+    #user: '${UID}:${GID}'
+    build: .
+    volumes:
+      - .:/workspace
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
