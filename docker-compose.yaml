@@ -1,6 +1,5 @@
 services:
   citylearn:
-    #user: '${UID}:${GID}'
     build: .
     volumes:
       - .:/workspace
