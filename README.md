@@ -4,88 +4,72 @@ CityLearn is an open source OpenAI Gym environment for the implementation of Mul
 ## Description
 Districts and cities have periods of high demand for electricity, which raise electricity prices and the overall cost of the power distribution networks. Flattening, smoothening, and reducing the overall curve of electrical demand helps reduce operational and capital costs of electricity generation, transmission, and distribution networks. Demand response is the coordination of electricity consuming agents (i.e. buildings) in order to reshape the overall curve of electrical demand.
 CityLearn allows the easy implementation of reinforcement learning agents in a multi-agent setting to reshape their aggregated curve of electrical demand by controlling the storage of energy by every agent. Currently, CityLearn allows controlling the storage of domestic hot water (DHW), and chilled water (for sensible cooling and dehumidification). CityLearn also includes models of air-to-water heat pumps, electric heaters, solar photovoltaic arrays, and the pre-computed energy loads of the buildings, which include space cooling, dehumidification, appliances, DHW, and solar generation.
-## Requirements
-CityLearn requires the installation of the following Python libraries:
-- Pandas 0.24.2 or older
-- Numpy 1.16.4 or older
-- Gym 0.14.0
-- Json 2.0.9
+## Installation
+On a terminal at the desired folder, run:
+```
+git clone https://github.com/gvalenzuelarg/CityLearn.git
+```
+## Usage
+For the following, `docker` and `docker-compose` are required:
+```
+cd CityLearn
+docker-compose run --rm citylearn bash
+```
+To run without GPU support, comment out the `deploy` section of `docker-compose.yaml`.
 
-In order to run the main files with the sample agent provided you will need:
-- PyTorch 1.1.0
-
-CityLearn may still work with some earlier versions of these libraries, but we have tested it with those.
+To run a 4 year simulation using the agent (to be defined) in `agent.py`:
+```
+python main.py
+```
+As and working example using the provided implementation of the SAC algorithm, run:
+```
+python example_main.py
+```
 
 ## Files
-    main.py
-
-    main.ipynb
-
-    citylearn.py
-
-    energy_models.py
-
-    agent.py
-
-    buildings_states_actions_space.json
-
-    reward_function.py
-
-    agents
-
-        ├── marlisa.py
-
-        ├── rbc.py
-
-        └── sac.py
-
-    common
-
-        ├── preprocessing.py
-
-        └── rl.py
-    
-    data
-
-        └── Climate_Zone_5
-
-            ├── building_attributes.json
-
-            ├── carbon_intensity.csv
-
-            ├── solar_generation_1kW.csv
-
-            ├── weather_data.csv
-
-            └── Building_i.csv
-
-    examples
-
-        ├── example_rbc.ipynb
-
-        ├── example_sac.ipynb
-
-        └── example_marlisa.ipynb
-
-    submission_files
-
-        ├── agent.py
-
-        ├── buildings_states_actions_space.json
-
-        └── reward_function.py
-
-- [main.ipynb](/main.ipynb): jupyter lab file. File that will be executed to evaluate the submission of the challenge.
-- [main.py](/main.py): Copy of main.ipynb as a .py  file.
+```
+├── Dockerfile
+├── LICENSE
+├── README.md
+├── agent.py
+├── agents
+│   ├── marlisa.py
+│   ├── rbc.py
+│   └── sac.py
+├── buildings_state_action_space.json
+├── citylearn.py
+├── common
+│   ├── preprocessing.py
+│   └── rl.py
+├── create_buffers.py
+├── data
+│   ├── Climate_Zone_1
+│   ├── Climate_Zone_2
+│   ├── Climate_Zone_3
+│   ├── Climate_Zone_4
+│   └── Climate_Zone_5
+├── docker-compose.yaml
+├── energy_models.py
+├── example_main.py
+├── images
+│   ├── citylearn_diagram.png
+│   └── dr.jpg
+├── main.py
+├── replay_buffer.py
+├── requirements.txt
+├── reward_function.py
+└── utils.py
+```
+- [main.py](/main.py): Runs a 4 year simulation with the control agent to be defined in `agent.py`.
+- [example_main.py](/example_main.py): Like `main.py` but configured to use `agents/sac.py` as the control agent.
+- [create_buffers.py](/create_buffers.py) Create and saves a serialized replay buffer using `agents/rbc.py` as RBC. Run with `--help` for optional parameters.
+- [agent.py](/agent.py) Module containing an agent to be developed. See `agents/sac.py` for a reference.
 - [buildings_state_action_space.json](/buildings_state_action_space.json): json file containing the possible states and actions for every building, from which users can choose.
 - [building_attributes.json](/data/Climate_Zone_5/building_attributes.json): json file containing the attributes of the buildings and which users can modify.
 - [citylearn.py](/citylearn.py): Contains the CityLearn environment and the functions building_loader() and autosize()
 - [energy_models.py](/energy_models.py): Contains the classes Building, HeatPump, EnergyStorage, and Battery which are called by the CityLearn class.
 - [agent.py](/agent.py): File that contains the agent class that will learn to control the different energy systems.
 - [reward_function.py](/reward_function.py): Contains the class "reward_function_ma", which can be edited and customized by each participant to help the controller find an optimal control policy.
-- [example_rbc.ipynb](/examples/example_rbc.ipynb): jupyter lab file. Example of the implementation of a manually optimized Rule-based controller (RBC) that can be used for comparison
-- [example_sac.ipynb](/examples/example_sac.ipynb): jupyter lab file. Example of the implementation of a soft-actor-critic ([SAC](https://arxiv.org/abs/1812.05905)) controller that can be used for comparison
-- [example_marlisa.ipynb](/examples/example_marlisa.ipynb): jupyter lab file. Example of the implementation of multi-agent reinforcement learning controller with iterative sequential  action selection ([MARLISA](https://www.researchgate.net/publication/344502330_MARLISA_Multi-Agent_Reinforcement_Learning_with_Iterative_Sequential_Action_Selection_for_Load_Shaping_of_Grid-Interactive_Connected_Buildings)) that can be used for comparison.
 
 ### Classes
 - CityLearn
