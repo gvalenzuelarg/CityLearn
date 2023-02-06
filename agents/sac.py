@@ -52,7 +52,7 @@ class SAC:
         
         # device
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        print('Device:'+"cuda" if torch.cuda.is_available() else "cpu")
+        print('Device:'+"cuda" if torch.cuda.is_available() else 'Device:'+"cpu")
         self.critic1_loss_, self.critic2_loss_, self.actor_loss_, self.alpha_loss_, self.alpha_ = {}, {}, {}, {}, {}
         
         
