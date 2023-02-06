@@ -802,3 +802,25 @@ class CityLearn(gym.Env):
             return cost, cost_last_yr
             
         return cost
+
+    def parse_states(self, state):
+        states = {}
+        for i, uid in enumerate(self.buildings):
+            states[uid] = {}
+            for param, value  in zip(
+                [k for (k,v) in self.buildings_states_actions[uid]['states'].items() if v==True],
+                state[i]
+                ):
+                states[uid][param] = value
+        return states
+
+    def parse_actions(self, action):
+        actions = {}
+        for i, uid in enumerate(self.buildings):
+            actions[uid] = {}
+            for param, value  in zip(
+                [k for (k,v) in self.buildings_states_actions[uid]['actions'].items() if v==True],
+                action[i]
+                ):
+                actions[uid][param] = value
+        return actions
