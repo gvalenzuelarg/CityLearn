@@ -1,11 +1,10 @@
-import logging
 from pathlib import Path
 from citylearn import CityLearn
 
-logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.ERROR)
-logger = logging.getLogger(__name__)
-
 def create_environment(n_steps):
+    if n_steps >= 8760*4:
+        raise ValueError('n_steps must be <= 8760*4-1 (4 years)')
+
     climate_zone = 5
     params = {'data_path':Path("data/Climate_Zone_"+str(climate_zone)), 
             'building_attributes':'building_attributes.json', 
@@ -18,7 +17,4 @@ def create_environment(n_steps):
             'cost_function': ['ramping','1-load_factor','average_daily_peak','peak_demand','net_electricity_consumption','carbon_emissions'], 
             'central_agent': False,
             'save_memory': False }
-    if n_steps >= 8760*4:
-        raise ValueError('n_steps must be <= 8760*4-1 (4 years)')
-    else:
-        return CityLearn(**params)
+    return CityLearn(**params)
