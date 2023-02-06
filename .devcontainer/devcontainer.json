@@ -14,7 +14,8 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"Meezilla.json",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"ms-azuretools.vscode-docker"
 			]
 		}
 	},
