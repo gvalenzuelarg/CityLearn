@@ -10,7 +10,7 @@ On a terminal at the desired folder, run:
 git clone https://github.com/gvalenzuelarg/CityLearn.git
 ```
 ## Usage
-For the following, `docker` and `docker-compose` are required:
+For the following, `docker` and `docker-compose` are required. First, lunch a terminal with a preconfigured environment:
 ```
 cd CityLearn
 docker-compose run --rm citylearn bash
@@ -21,10 +21,15 @@ To run a 4 year simulation using the agent (to be defined) in `agent.py`:
 ```
 python main.py
 ```
-As and working example using the provided implementation of the SAC algorithm, run:
+As a working example using the provided implementation of the SAC algorithm, run:
 ```
 python example_main.py
 ```
+To create and save a serialized replay buffer of a 4 year simulation with a RBC as agent:
+```
+python create_buffers.py
+```
+The resulting pickled file is saved by default to `output/replay_buffers.pkl`.
 
 ## Files
 ```
