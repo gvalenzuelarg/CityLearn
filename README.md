@@ -17,7 +17,7 @@ docker-compose run --rm citylearn bash
 ```
 To run without GPU support, comment out the `deploy` section of `docker-compose.yaml`.
 
-To run a 4 year simulation using the agent (to be defined) in `agent.py`:
+To run a 4 year simulation using an agent (to be defined) in `agent.py`, execute:
 ```
 python main.py
 ```
@@ -25,11 +25,11 @@ As a working example using the provided implementation of the SAC algorithm, run
 ```
 python example_main.py
 ```
-To create and save a serialized replay buffer of a 4 year simulation with a RBC as agent:
+To create and save a serialized replay buffer of a 4 year simulation with an RBC as agent, run:
 ```
 python create_buffers.py
 ```
-The resulting pickled file is saved by default to `output/replay_buffers.pkl`.
+The resulting pickled file is saved to `output/replay_buffers.pkl` by default.
 
 ## Files
 ```
@@ -65,16 +65,15 @@ The resulting pickled file is saved by default to `output/replay_buffers.pkl`.
 ├── reward_function.py
 └── utils.py
 ```
-- [main.py](/main.py): Runs a 4 year simulation with the control agent to be defined in `agent.py`.
-- [example_main.py](/example_main.py): Like `main.py` but configured to use `agents/sac.py` as the control agent.
-- [create_buffers.py](/create_buffers.py) Create and saves a serialized replay buffer using `agents/rbc.py` as RBC. Run with `--help` for optional parameters.
-- [agent.py](/agent.py) Module containing an agent to be developed. See `agents/sac.py` for a reference.
+- [main.py](/main.py): Runs a 4 year simulation with a control agent to be defined in `agent.py`.
+- [example_main.py](/example_main.py): Like `main.py`, but configured to use `agents/sac.py` as the control agent.
+- [create_buffers.py](/create_buffers.py) Create and saves a serialized replay buffer using `agents/rbc.py` as control agent. Run with `--help` for optional parameters.
+- [agent.py](/agent.py) File that contains the agent class (to be developed) that will learn to control the different energy systems. See `agents/sac.py` for reference.
 - [buildings_state_action_space.json](/buildings_state_action_space.json): json file containing the possible states and actions for every building, from which users can choose.
 - [building_attributes.json](/data/Climate_Zone_5/building_attributes.json): json file containing the attributes of the buildings and which users can modify.
 - [citylearn.py](/citylearn.py): Contains the CityLearn environment and the functions building_loader() and autosize()
 - [energy_models.py](/energy_models.py): Contains the classes Building, HeatPump, EnergyStorage, and Battery which are called by the CityLearn class.
-- [agent.py](/agent.py): File that contains the agent class that will learn to control the different energy systems.
-- [reward_function.py](/reward_function.py): Contains the class "reward_function_ma", which can be edited and customized by each participant to help the controller find an optimal control policy.
+- [reward_function.py](/reward_function.py): Contains the class "reward_function_ma", which can be edited and customized to help the controller find an optimal control policy.
 
 ### Classes
 - CityLearn
